@@ -1,0 +1,57 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://cn0qss0xvrl3q"]
+
+[ext_resource type="Script" uid="uid://o5rxs4cih61" path="res://ai/tasks/targetting/get_node_by_name.gd" id="1_k2plq"]
+[ext_resource type="Script" uid="uid://dx4c3turt7xvx" path="res://ai/tasks/movement/persue_target.gd" id="2_s874y"]
+[ext_resource type="Script" uid="uid://dvdwo317afihn" path="res://ai/tasks/movement/jump.gd" id="3_ktcd3"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ebnpd"]
+
+[sub_resource type="BTWait" id="BTWait_ktcd3"]
+
+[sub_resource type="BTAction" id="BTAction_k2plq"]
+script = ExtResource("1_k2plq")
+node_name = &"marker_2"
+
+[sub_resource type="BTAction" id="BTAction_g36ri"]
+script = ExtResource("2_s874y")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_7wb27"]
+
+[sub_resource type="BTAction" id="BTAction_7wb27"]
+script = ExtResource("3_ktcd3")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_ktcd3"]
+min_duration = 2.0
+max_duration = 3.0
+
+[sub_resource type="BTAction" id="BTAction_ktcd3"]
+script = ExtResource("1_k2plq")
+node_name = &"marker_1"
+
+[sub_resource type="BTAction" id="BTAction_7q1ia"]
+script = ExtResource("2_s874y")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_g36ri"]
+min_duration = 0.5
+max_duration = 1.0
+
+[sub_resource type="BTAction" id="BTAction_th5uf"]
+script = ExtResource("3_ktcd3")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_7q1ia"]
+min_duration = 2.0
+max_duration = 3.0
+
+[sub_resource type="BTAction" id="BTAction_edadn"]
+script = ExtResource("1_k2plq")
+node_name = &"player"
+
+[sub_resource type="BTAction" id="BTAction_xkil5"]
+script = ExtResource("2_s874y")
+
+[sub_resource type="BTSequence" id="BTSequence_s874y"]
+children = [SubResource("BTWait_ktcd3"), SubResource("BTAction_k2plq"), SubResource("BTAction_g36ri"), SubResource("BTRandomWait_7wb27"), SubResource("BTAction_7wb27"), SubResource("BTRandomWait_ktcd3"), SubResource("BTAction_ktcd3"), SubResource("BTAction_7q1ia"), SubResource("BTRandomWait_g36ri"), SubResource("BTAction_th5uf"), SubResource("BTRandomWait_7q1ia"), SubResource("BTAction_edadn"), SubResource("BTAction_xkil5")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ebnpd")
+root_task = SubResource("BTSequence_s874y")

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bdveaalkf8qr7"]
+
+[ext_resource type="Script" uid="uid://do7dcx78ik1au" path="res://scripts/intent.gd" id="1_wa5vi"]
+[ext_resource type="Script" uid="uid://bvw6xe8xpn4se" path="res://scripts/character.gd" id="1_wfnr8"]
+[ext_resource type="Script" uid="uid://b2ar03akh6tld" path="res://scripts/motor.gd" id="2_wfnr8"]
+[ext_resource type="Script" uid="uid://daifbba6ts2y3" path="res://scripts/states/idle.gd" id="2_yxww1"]
+[ext_resource type="Script" uid="uid://n4eyhvlyu8wt" path="res://scripts/input_driver.gd" id="3_px5sl"]
+[ext_resource type="Script" uid="uid://bontmm24dmtyl" path="res://scripts/states/jump.gd" id="3_wdpcj"]
+[ext_resource type="Script" uid="uid://dvmuwqly1gfi0" path="res://scripts/states/move.gd" id="4_qi5as"]
+[ext_resource type="BehaviorTree" uid="uid://cn0qss0xvrl3q" path="res://resources/ai_driver.tres" id="5_wdpcj"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_vu45j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vu45j"]
+resource_local_to_scene = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vu45j"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_vu45j")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vu45j"]
+
+[node name="Character" type="CharacterBody3D" unique_id=206364604]
+script = ExtResource("1_wfnr8")
+
+[node name="LimboHSM" type="LimboHSM" parent="." unique_id=549828756]
+
+[node name="idle" type="LimboState" parent="LimboHSM" unique_id=962059128]
+script = ExtResource("2_yxww1")
+
+[node name="jump" type="LimboState" parent="LimboHSM" unique_id=304213561]
+script = ExtResource("3_wdpcj")
+
+[node name="move" type="LimboState" parent="LimboHSM" unique_id=538735229]
+script = ExtResource("4_qi5as")
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1167203197]
+behavior_tree = ExtResource("5_wdpcj")
+active = false
+blackboard_plan = SubResource("BlackboardPlan_vu45j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2039483826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_vu45j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=120475766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vu45j")
+
+[node name="PlayerInputDriver" type="Node" parent="." unique_id=1011185650]
+script = ExtResource("3_px5sl")
+metadata/_custom_type_script = "uid://n4eyhvlyu8wt"
+
+[node name="Intent" type="Node" parent="." unique_id=1887188261]
+script = ExtResource("1_wa5vi")
+metadata/_custom_type_script = "uid://do7dcx78ik1au"
+
+[node name="MovementMotor" type="Node" parent="." unique_id=1386782491]
+script = ExtResource("2_wfnr8")
+metadata/_custom_type_script = "uid://b2ar03akh6tld"
