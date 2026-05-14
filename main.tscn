@@ -21,6 +21,12 @@ size = Vector3(10, 0.2, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7dm0k"]
 data = PackedVector3Array(-5, 0.099999994, 5, 5, 0.099999994, 5, -5, -0.099999994, 5, 5, 0.099999994, 5, 5, -0.099999994, 5, -5, -0.099999994, 5, 5, 0.099999994, -5, -5, 0.099999994, -5, 5, -0.099999994, -5, -5, 0.099999994, -5, -5, -0.099999994, -5, 5, -0.099999994, -5, 5, 0.099999994, 5, 5, 0.099999994, -5, 5, -0.099999994, 5, 5, 0.099999994, -5, 5, -0.099999994, -5, 5, -0.099999994, 5, -5, 0.099999994, -5, -5, 0.099999994, 5, -5, -0.099999994, -5, -5, 0.099999994, 5, -5, -0.099999994, 5, -5, -0.099999994, -5, 5, 0.099999994, 5, -5, 0.099999994, 5, 5, 0.099999994, -5, -5, 0.099999994, 5, -5, 0.099999994, -5, 5, 0.099999994, -5, -5, -0.099999994, 5, 5, -0.099999994, 5, -5, -0.099999994, -5, 5, -0.099999994, 5, 5, -0.099999994, -5, -5, -0.099999994, -5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(2, 2, 0.3)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ig7tw"]
+data = PackedVector3Array(-1, 1, 0.14999999, 1, 1, 0.14999999, -1, -1, 0.14999999, 1, 1, 0.14999999, 1, -1, 0.14999999, -1, -1, 0.14999999, 1, 1, -0.14999999, -1, 1, -0.14999999, 1, -1, -0.14999999, -1, 1, -0.14999999, -1, -1, -0.14999999, 1, -1, -0.14999999, 1, 1, 0.14999999, 1, 1, -0.14999999, 1, -1, 0.14999999, 1, 1, -0.14999999, 1, -1, -0.14999999, 1, -1, 0.14999999, -1, 1, -0.14999999, -1, 1, 0.14999999, -1, -1, -0.14999999, -1, 1, 0.14999999, -1, -1, 0.14999999, -1, -1, -0.14999999, 1, 1, 0.14999999, -1, 1, 0.14999999, 1, 1, -0.14999999, -1, 1, 0.14999999, -1, 1, -0.14999999, 1, 1, -0.14999999, -1, -1, 0.14999999, 1, -1, 0.14999999, -1, -1, -0.14999999, 1, -1, 0.14999999, 1, -1, -0.14999999, -1, -1, -0.14999999)
+
 [node name="Node3D" type="Node3D" unique_id=456877841]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=613707887]
@@ -42,14 +48,24 @@ shape = SubResource("ConcavePolygonShape3D_7dm0k")
 transform = Transform3D(1, 0, 0, 0, 0.8300901, 0.5576292, 0, -0.5576292, 0.8300901, 0, 5.2070546, 9.112814)
 
 [node name="marker_1" type="Marker3D" parent="." unique_id=103063969]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5705178, 0.37771082, -3.5454235)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.825591, 0.37771082, -3.5454235)
 
 [node name="marker_2" type="Marker3D" parent="." unique_id=232061724]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5384471, 0.37771082, -3.5454235)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.281903, 0.37771082, 1.19033)
 
-[node name="player" parent="." unique_id=206364604 instance=ExtResource("1_ig7tw")]
+[node name="player" parent="." unique_id=206364604 groups=["player"] instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0518608, 0.099999905, 3.452939)
 
 [node name="npc" parent="." unique_id=206347089 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6056151, 0.09999943, -3.7971668)
 control_mode = 1
+move_speed = 3.0
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1473325332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3844442, 1.1196674, 2.5961883)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1232274856]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1455435799]
+shape = SubResource("ConcavePolygonShape3D_ig7tw")

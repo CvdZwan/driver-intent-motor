@@ -14,16 +14,14 @@ func _generate_name() -> String:
 	return "Pursue3D %s" % [LimboUtility.decorate_var(target_var)]
 
 func _enter() -> void:
-	# Stop any previous movement intent when task starts
 	agent.intent.move_dir = Vector3.ZERO
 
 func _tick(_delta: float) -> Status:
 	var target := blackboard.get_var(target_var, null) as Node3D
 	if not is_instance_valid(target):
-		agent.agent_intent.move_dir = Vector3.ZERO
+		agent.intent.move_dir = Vector3.ZERO
 		return FAILURE
 
-	# XZ-only distance check
 	var a: Vector3 = agent.global_position
 	var b: Vector3 = target.global_position
 	a.y = 0.0

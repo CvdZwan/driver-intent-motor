@@ -7,7 +7,7 @@ var intent: Intent
 @export var move_speed: float = 6.0
 @export var jump_speed: float = 6.5
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	agent.velocity.x = intent.move_dir.x * move_speed
 	agent.velocity.z = intent.move_dir.z * move_speed
 
