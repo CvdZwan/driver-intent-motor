@@ -3,12 +3,6 @@ class_name PlayableCharacter
 
 enum ControlMode { PLAYER, AI, DISABLED }
 @export var control_mode: ControlMode = ControlMode.PLAYER
-@export var is_aggro: bool = false
-@export var move_speed: float = 6.0:
-	set(value):
-		move_speed = value
-		if is_node_ready() and movement_motor != null:
-			movement_motor.move_speed = move_speed
 
 @onready var player_input_driver: PlayerInputDriver = $PlayerInputDriver
 @onready var movement_motor: MovementMotor = $MovementMotor
@@ -23,13 +17,12 @@ enum ControlMode { PLAYER, AI, DISABLED }
 func _ready() -> void:
 	movement_motor.agent = self
 	movement_motor.intent = intent
-	movement_motor.move_speed = move_speed
 
 	player_input_driver.agent = self
 	player_input_driver.intent = intent
-
+	
 	set_control_mode(control_mode)
-
+	
 	# State machine
 	limbo_hsm.initial_state = idle
 	limbo_hsm.initialize(self)
@@ -38,16 +31,7 @@ func _ready() -> void:
 	limbo_hsm.add_transition(move, idle, &"to_idle")
 	limbo_hsm.add_transition(idle, jump, &"to_jump")
 	limbo_hsm.add_transition(jump, idle, &"to_idle")
-
-func set_debug_color(color: Color) -> void:
-	var mesh := get_node_or_null("MeshInstance3D") as MeshInstance3D
-	if mesh == null:
-		return
-
-	var material := mesh.get_active_material(0)
-	if material is StandardMaterial3D:
-		material.albedo_color = color
-
+	
 func set_control_mode(mode: ControlMode) -> void:
 	control_mode = mode
 
